@@ -18,11 +18,11 @@ function onEnter(event, data, state, opts) {
     var startBlock = state.startBlock;
 
     var pos = TablePosition.create(state, startBlock);
-    if (pos.getRowIndex() + 1 > pos.getHeight()) {
+    if (pos.getRowIndex() + 2 > pos.getHeight()) {
         transform = insertRow(opts, transform);
     }
 
-    return moveSelection(opts, transform, pos.getColumnIndex(), pos.getRowIndex()).apply();
+    return moveSelection(opts, transform, pos.getColumnIndex(), pos.getRowIndex() + 1).apply();
 }
 
 module.exports = onEnter;
