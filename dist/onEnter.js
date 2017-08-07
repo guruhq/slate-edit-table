@@ -22,7 +22,7 @@ function onEnter(event, data, state, opts) {
         transform = insertRow(opts, transform);
     }
 
-    return moveSelection({}, transform, pos.getColumnIndex(), pos.getRowIndex()).apply();
+    return moveSelection(opts, transform, pos.getColumnIndex(), pos.getRowIndex()).apply();
 }
 
 module.exports = onEnter;
