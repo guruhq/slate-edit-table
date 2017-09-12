@@ -13,10 +13,10 @@ function createCell(type, text) {
 
     return Slate.Block.create({
         type: type,
-        nodes: [Slate.Raw.deserializeText({
+        nodes: [Slate.Text.fromJSON({
             kind: 'text',
             text: text
-        }, { terse: true })]
+        })]
     });
 }
 

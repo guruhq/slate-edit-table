@@ -48,12 +48,14 @@ function noBlocksWithinCell(opts) {
 
 
         // If any, unwrap all nested blocks
-        normalize: function normalize(transform, node, nestedBlocks) {
+        normalize: function normalize(change, node, nestedBlocks) {
             nestedBlocks.forEach(function (block) {
                 return block.nodes.forEach(function (grandChild) {
-                    transform.unwrapNodeByKey(grandChild.key);
+                    change.unwrapNodeByKey(grandChild.key);
                 });
             });
+
+            return change;
         }
     };
 }
@@ -88,14 +90,14 @@ function cellsWithinTable(opts) {
 
 
         // If any, wrap all cells in a row block
-        normalize: function normalize(transform, node, _ref) {
+        normalize: function normalize(change, node, _ref) {
             var cells = _ref.cells;
 
-            transform = cells.reduce(function (tr, cell) {
-                return tr.wrapBlockByKey(cell.key, opts.typeRow, { normalize: false });
-            }, transform);
+            cells.forEach(function (cell) {
+                return change.wrapBlockByKey(cell.key, opts.typeRow, { normalize: false });
+            });
 
-            return transform;
+            return change;
         }
     };
 }
@@ -130,19 +132,19 @@ function rowsWithinTable(opts) {
 
 
         // If any, wrap all cells in a row block
-        normalize: function normalize(transform, node, _ref2) {
+        normalize: function normalize(change, node, _ref2) {
             var rows = _ref2.rows;
 
-            transform = rows.reduce(function (tr, row) {
-                return tr.wrapBlockByKey(row.key, {
+            rows.forEach(function (row) {
+                return change.wrapBlockByKey(row.key, {
                     type: opts.typeTable,
                     data: {
                         align: createAlign(row.nodes.size)
                     }
                 }, { normalize: false });
-            }, transform);
+            });
 
-            return transform;
+            return change;
         }
     };
 }
@@ -185,23 +187,23 @@ function tablesContainOnlyRows(opts) {
          * Replaces the node's children
          * @param {List<Nodes>} value.nodes
          */
-        normalize: function normalize(transform, node, _ref3) {
+        normalize: function normalize(change, node, _ref3) {
             var _ref3$invalids = _ref3.invalids,
                 invalids = _ref3$invalids === undefined ? [] : _ref3$invalids,
                 _ref3$add = _ref3.add,
                 add = _ref3$add === undefined ? [] : _ref3$add;
 
             // Remove invalids
-            transform = invalids.reduce(function (t, child) {
-                return t.removeNodeByKey(child.key, { normalize: false });
-            }, transform);
+            invalids.forEach(function (child) {
+                return change.removeNodeByKey(child.key, { normalize: false });
+            });
 
             // Add valids
-            transform = add.reduce(function (t, child) {
-                return t.insertNodeByKey(node.key, 0, child);
-            }, transform);
+            add.forEach(function (child) {
+                return change.insertNodeByKey(node.key, 0, child);
+            });
 
-            return transform;
+            return change;
         }
     };
 }
@@ -263,23 +265,23 @@ function rowsContainRequiredColumns(opts) {
          * Updates by key every given nodes
          * @param {List<Nodes>} value.toUpdate
          */
-        normalize: function normalize(transform, node, rows) {
-            return rows.reduce(function (tr, _ref4) {
+        normalize: function normalize(change, node, rows) {
+            rows.forEach(function (_ref4) {
                 var row = _ref4.row,
                     invalids = _ref4.invalids,
                     add = _ref4.add;
 
-                tr = invalids.reduce(function (t, child) {
-                    return t.removeNodeByKey(child.key, { normalize: false });
-                }, tr);
+                invalids.forEach(function (child) {
+                    return change.removeNodeByKey(child.key, { normalize: false });
+                });
 
-                tr = Range(0, add).reduce(function (t) {
+                Range(0, add).forEach(function () {
                     var cell = makeEmptyCell(opts);
-                    return t.insertNodeByKey(row.key, 0, cell, { normalize: false });
-                }, tr);
+                    return change.insertNodeByKey(row.key, 0, cell, { normalize: false });
+                });
+            });
 
-                return tr;
-            }, transform);
+            return change;
         }
     };
 }
@@ -309,11 +311,11 @@ function tableContainAlignData(opts) {
          * @param {Map} align
          * @param {Number} columns
          */
-        normalize: function normalize(transform, node, _ref5) {
+        normalize: function normalize(change, node, _ref5) {
             var align = _ref5.align,
                 columns = _ref5.columns;
 
-            return transform.setNodeByKey(node.key, {
+            return change.setNodeByKey(node.key, {
                 data: Object.assign(node.data.toJS(), { align: createAlign(columns, align) })
             }, { normalize: false });
         }

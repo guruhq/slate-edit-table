@@ -2,15 +2,15 @@
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var insertTable = require('./transforms/insertTable');
-var insertRow = require('./transforms/insertRow');
-var removeRow = require('./transforms/removeRow');
-var insertColumn = require('./transforms/insertColumn');
-var removeColumn = require('./transforms/removeColumn');
-var removeTable = require('./transforms/removeTable');
-var moveSelection = require('./transforms/moveSelection');
-var moveSelectionBy = require('./transforms/moveSelectionBy');
-var setColumnAlign = require('./transforms/setColumnAlign');
+var insertTable = require('./changes/insertTable');
+var insertRow = require('./changes/insertRow');
+var removeRow = require('./changes/removeRow');
+var insertColumn = require('./changes/insertColumn');
+var removeColumn = require('./changes/removeColumn');
+var removeTable = require('./changes/removeTable');
+var moveSelection = require('./changes/moveSelection');
+var moveSelectionBy = require('./changes/moveSelectionBy');
+var setColumnAlign = require('./changes/setColumnAlign');
 
 var onEnter = require('./onEnter');
 var onTab = require('./onTab');
@@ -50,36 +50,36 @@ function EditTable(opts) {
     }
 
     /**
-     * Bind a transform
+     * Bind a change
      */
-    function bindTransform(fn) {
-        return function (transform) {
-            var state = transform.state;
+    function bindChange(fn) {
+        return function (change) {
+            var state = change.state;
 
 
             if (!isSelectionInTable(state)) {
-                return transform;
+                return change;
             }
 
             for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
                 args[_key - 1] = arguments[_key];
             }
 
-            return fn.apply(undefined, _toConsumableArray([opts, transform].concat(args)));
+            return fn.apply(undefined, _toConsumableArray([opts, change].concat(args)));
         };
     }
 
     /**
      * User is pressing a key in the editor
      */
-    function onKeyDown(e, data, state) {
+    function onKeyDown(e, data, change) {
         // Only handle events in cells
-        if (!isSelectionInTable(state)) {
+        if (!isSelectionInTable(change.state)) {
             return;
         }
 
         // Build arguments list
-        var args = [e, data, state, opts];
+        var args = [e, data, change, opts];
 
         switch (data.key) {
             case KEY_ENTER:
@@ -105,16 +105,16 @@ function EditTable(opts) {
             isSelectionInTable: isSelectionInTable
         },
 
-        transforms: {
+        changes: {
             insertTable: insertTable.bind(null, opts),
-            insertRow: bindTransform(insertRow),
-            removeRow: bindTransform(removeRow),
-            insertColumn: bindTransform(insertColumn),
-            removeColumn: bindTransform(removeColumn),
-            removeTable: bindTransform(removeTable),
-            moveSelection: bindTransform(moveSelection),
-            moveSelectionBy: bindTransform(moveSelectionBy),
-            setColumnAlign: bindTransform(setColumnAlign)
+            insertRow: bindChange(insertRow),
+            removeRow: bindChange(removeRow),
+            insertColumn: bindChange(insertColumn),
+            removeColumn: bindChange(removeColumn),
+            removeTable: bindChange(removeTable),
+            moveSelection: bindChange(moveSelection),
+            moveSelectionBy: bindChange(moveSelectionBy),
+            setColumnAlign: bindChange(setColumnAlign)
         }
     };
 }

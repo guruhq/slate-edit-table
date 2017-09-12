@@ -2,7 +2,8 @@
 
 var Slate = require('slate');
 
-function onBackspace(event, data, state, opts) {
+function onBackspace(event, data, change, opts) {
+    var state = change.state;
     var startBlock = state.startBlock,
         startOffset = state.startOffset,
         isCollapsed = state.isCollapsed,
@@ -12,12 +13,12 @@ function onBackspace(event, data, state, opts) {
 
     if (startOffset === 0 && isCollapsed) {
         event.preventDefault();
-        return state;
+        return null;
     }
 
     // If "normal" deletion, we continue
     if (startBlock === endBlock) {
-        return;
+        return null;
     }
 
     // If cursor is between multiple blocks,
@@ -27,18 +28,18 @@ function onBackspace(event, data, state, opts) {
     var blocks = state.blocks,
         focusBlock = state.focusBlock;
 
-    var transform = blocks.reduce(function (tr, block) {
+    blocks.forEach(function (block) {
         if (block.type !== opts.typeCell) {
-            return transform;
+            return change;
         }
 
         var cellRange = Slate.Selection.create().moveToRangeOf(block);
 
-        return tr.deleteAtRange(cellRange);
-    }, state.transform());
+        return change.deleteAtRange(cellRange);
+    });
 
     // Clear selected cells
-    return transform.collapseToStartOf(focusBlock).apply();
+    return change.collapseToStartOf(focusBlock);
 }
 
 module.exports = onBackspace;

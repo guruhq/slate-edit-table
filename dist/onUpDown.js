@@ -1,23 +1,22 @@
 'use strict';
 
 var TablePosition = require('./TablePosition');
-var moveSelectionBy = require('./transforms/moveSelectionBy');
+var moveSelectionBy = require('./changes/moveSelectionBy');
 
-function onUpDown(event, data, state, opts) {
+function onUpDown(event, data, change, opts) {
 
     var direction = data.key === 'up' ? -1 : +1;
-    var pos = TablePosition.create(state, state.startBlock);
+    var pos = TablePosition.create(change.state, change.state.startBlock);
 
     if (pos.isFirstRow() && direction === -1 || pos.isLastRow() && direction === +1) {
         // Let the default behavior move out of the table
-        return state;
+        return change;
     } else {
         event.preventDefault();
 
-        var transform = state.transform();
-        transform = moveSelectionBy(opts, transform, 0, data.key === 'up' ? -1 : +1);
+        moveSelectionBy(opts, change, 0, data.key === 'up' ? -1 : +1);
 
-        return transform.apply();
+        return change;
     }
 }
 
