@@ -23,11 +23,12 @@ function selectAllText(change) {
  */
 function onTab(event, data, change, opts) {
     event.preventDefault();
+    var state = change.state;
+
     var direction = data.isShift ? -1 : +1;
 
     // Create new row if needed
-    var _state = state,
-        startBlock = _state.startBlock;
+    var startBlock = state.startBlock;
 
     var pos = TablePosition.create(state, startBlock);
     if (pos.isFirstCell() && direction === -1) {
