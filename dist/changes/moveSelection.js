@@ -29,8 +29,8 @@ function moveSelection(opts, change, x, y) {
     var cell = row.nodes.get(x);
 
     // Calculate new offset
-    if (startOffset > cell.length) {
-        startOffset = cell.length;
+    if (startOffset > cell.text.length) {
+        startOffset = cell.text.length;
     }
 
     return change.collapseToEndOf(cell).moveOffsetsTo(startOffset);
