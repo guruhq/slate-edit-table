@@ -14,7 +14,7 @@ function selectAllText(change) {
     var startBlock = state.startBlock;
 
 
-    return change.moveOffsetsTo(0).extend(startBlock.length);
+    return change.moveOffsetsTo(0).extend(startBlock.text.length);
 }
 
 /**
