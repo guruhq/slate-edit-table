@@ -38,7 +38,7 @@ function onTab(event, data, change, opts) {
     }
 
     // Move
-    transform = moveSelectionBy(opts, change, direction, 0);
+    moveSelectionBy(opts, change, direction, 0);
 
     // Select all cell.
     return selectAllText(change);
