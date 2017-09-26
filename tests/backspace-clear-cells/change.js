@@ -5,7 +5,11 @@ module.exports = function(plugin, change) {
 
     const withCursor = change
         .collapseToStartOf(blockStart)
+<<<<<<< HEAD:tests/backspace-clear-cells/change.js
         .extendToEndOf(blockEnd)
+=======
+        .extendToEndOf(blockEnd);
+>>>>>>> master:tests/backspace-clear-cells/change.js
 
     return plugin.onKeyDown(
         {
