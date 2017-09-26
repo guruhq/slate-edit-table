@@ -5,7 +5,7 @@ var TablePosition = require('../TablePosition');
 /**
  * Move selection to {x,y}
  *
- * @param {Object} opts
+ * @param {Options} opts The plugin options
  * @param {Slate.Change} change
  * @param {Number} x
  * @param {Number} y

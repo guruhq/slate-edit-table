@@ -23,12 +23,14 @@ function selectAllText(change) {
  */
 function onTab(event, data, change, opts) {
     event.preventDefault();
-    var state = change.state;
+    var _change = change,
+        state = _change.state;
 
     var direction = data.isShift ? -1 : +1;
 
     // Create new row if needed
-    var startBlock = state.startBlock;
+    var startBlock = state.startBlock,
+        selection = state.selection;
 
     var pos = TablePosition.create(state, startBlock);
     if (pos.isFirstCell() && direction === -1) {
@@ -36,6 +38,9 @@ function onTab(event, data, change, opts) {
     } else if (pos.isLastCell() && direction === 1) {
         insertRow(opts, change);
     }
+
+    // Move back to initial cell (insertRow moves selection automatically).
+    change = change.select(selection);
 
     // Move
     moveSelectionBy(opts, change, direction, 0);

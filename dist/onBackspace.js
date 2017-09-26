@@ -13,7 +13,7 @@ function onBackspace(event, data, change, opts) {
 
     if (startOffset === 0 && isCollapsed) {
         event.preventDefault();
-        return null;
+        return change;
     }
 
     // If "normal" deletion, we continue

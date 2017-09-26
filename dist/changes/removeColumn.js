@@ -8,7 +8,11 @@ var TablePosition = require('../TablePosition');
 /**
  * Delete current column in a table
  *
+<<<<<<< HEAD:lib/changes/removeColumn.js
  * @param {Object} opts
+=======
+ * @param {Options} opts The plugin options
+>>>>>>> master:lib/changes/removeColumn.js
  * @param {Slate.Change} change
  * @param {Number} at
  * @return {Slate.Change}

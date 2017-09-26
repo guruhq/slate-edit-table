@@ -11,7 +11,7 @@ var ALIGN = require('../ALIGN');
 /**
  * Insert a new column in current table
  *
- * @param {Object} opts
+ * @param {Options} opts The plugin options
  * @param {Slate.Change} change
  * @param {Number} at
  * @param {String} columnAlign

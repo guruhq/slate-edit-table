@@ -5,7 +5,7 @@ var createTable = require('../createTable');
 /**
  * Insert a new table
  *
- * @param {Object} opts
+ * @param {Options} opts The plugin options
  * @param {Slate.Change} change
  * @param {Number} columns
  * @param {Number} rows

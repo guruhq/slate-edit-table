@@ -7,7 +7,7 @@ var createCell = require('./createCell');
 /**
  * Create a new row block
  *
- * @param {Object} opts
+ * @param {Options} opts The plugin options
  * @param {Number} columns
  * @param {Function} textGetter
  * @return {State.Block}

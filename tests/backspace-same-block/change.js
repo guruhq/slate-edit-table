@@ -7,11 +7,7 @@ module.exports = function(plugin, change) {
 
     const withCursor = change
         .collapseToStartOf(blockStart)
-<<<<<<< HEAD:tests/backspace-same-block/change.js
-        .extendToEndOf(blockEnd)
-=======
         .extendToEndOf(blockEnd);
->>>>>>> master:tests/backspace-same-block/change.js
 
     const result = plugin.onKeyDown(
         {

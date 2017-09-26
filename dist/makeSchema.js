@@ -10,9 +10,7 @@ var createAlign = require('./createAlign');
 
 /**
  * Create a schema for tables
- * @param {String} opts.typeTable The type of table blocks
- * @param {String} opts.typeRow The type of row blocks
- * @param {String} opts.typeCell The type of cell blocks
+ * @param {Options} opts The plugin options
  * @return {Object} A schema definition with rules to normalize tables
  */
 function makeSchema(opts) {
@@ -25,9 +23,7 @@ function makeSchema(opts) {
  * Rule to enforce cells only contain inlines or text.
  * It unwrap blocks in cell blocks
  *
- * @param {String} opts.typeTable The type of table blocks
- * @param {String} opts.typeRow The type of row blocks
- * @param {String} opts.typeCell The type of cell blocks
+ * @param {Options} opts The plugin options
  * @return {Object} A rule to enforce cells only contain inlines or text.
  */
 function noBlocksWithinCell(opts) {
@@ -63,9 +59,7 @@ function noBlocksWithinCell(opts) {
 /**
  * Rule to enforce cells are always surrounded by a row.
  *
- * @param {String} opts.typeTable The type of table blocks
- * @param {String} opts.typeRow The type of row blocks
- * @param {String} opts.typeCell The type of cell blocks
+ * @param {Options} opts The plugin options
  * @return {Object} A rule to ensure cells are always surrounded by a row.
  */
 function cellsWithinTable(opts) {
@@ -105,9 +99,7 @@ function cellsWithinTable(opts) {
 /**
  * Rule to enforce rows are always surrounded by a table.
  *
- * @param {String} opts.typeTable The type of table blocks
- * @param {String} opts.typeRow The type of row blocks
- * @param {String} opts.typeCell The type of cell blocks
+ * @param {Options} opts The plugin options
  * @return {Object} A rule to ensure rows are always surrounded by a table.
  */
 function rowsWithinTable(opts) {
@@ -150,9 +142,7 @@ function rowsWithinTable(opts) {
 }
 
 /**
- * @param {String} opts.typeTable The type of table blocks
- * @param {String} opts.typeRow The type of row blocks
- * @param {String} opts.typeCell The type of cell blocks
+ * @param {Options} opts The plugin options
  * @return {Object} A rule that ensures tables only contain rows and
  * at least one.
  */
@@ -209,9 +199,7 @@ function tablesContainOnlyRows(opts) {
 }
 
 /**
- * @param {String} opts.typeTable The type of table blocks
- * @param {String} opts.typeRow The type of row blocks
- * @param {String} opts.typeCell The type of cell blocks
+ * @param {Options} opts The plugin options
  * @return {Object} A rule that ensures rows contains only cells, and
  * as much cells as there is columns in the table.
  */
@@ -287,9 +275,7 @@ function rowsContainRequiredColumns(opts) {
 }
 
 /**
- * @param {String} opts.typeTable The type of table blocks
- * @param {String} opts.typeRow The type of row blocks
- * @param {String} opts.typeCell The type of cell blocks
+ * @param {Options} opts The plugin options
  * @return {Object} A rule that ensures table node has all align data
  */
 function tableContainAlignData(opts) {

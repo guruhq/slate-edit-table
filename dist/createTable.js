@@ -11,7 +11,7 @@ var createAlign = require('./createAlign');
  * Create a table
  *
  * @param {Slate.State} state
- * @param {Object} opts
+ * @param {Options} opts The plugin options
  * @param {Number} columns
  * @param {Number} rows
  * @param {Function} textGetter

@@ -5,7 +5,7 @@ var TablePosition = require('../TablePosition');
 /**
  * Delete the whole table
  *
- * @param {Object} opts
+ * @param {Options} opts The plugin options
  * @param {Slate.Change} change
  * @param {Number} at
  * @return {Slate.Change}

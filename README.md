@@ -46,11 +46,6 @@ const plugins = [
 
 Return true if selection is inside a table cell.
 
-<<<<<<< HEAD
-#### `changes.insertTable`
-
-`plugin.changes.insertTable(change: Change, columns: Number?, rows: Number?) => Change`
-=======
 #### `utils.getPosition`
 
 `plugin.utils.getPosition(state: State) => TablePosition`
@@ -60,27 +55,18 @@ Returns the detailed position in the current table. Throws if not in a table.
 #### `changes.insertTable`
 
 `plugin.changes.insertTable(change: Change, columns: ?number, rows: ?number) => Change`
->>>>>>> master
 
 Insert a new empty table.
 
 #### `changes.insertRow`
 
-<<<<<<< HEAD
-`plugin.changes.insertRow(change: Change, at: Number?) => Change`
-=======
 `plugin.changes.insertRow(change: Change, at: ?number) => Change`
->>>>>>> master
 
 Insert a new row after the current one or at the specific index (`at`).
 
 #### `changes.insertColumn`
 
-<<<<<<< HEAD
-`plugin.changes.insertColumn(change: Change, at: Number?) => Change`
-=======
 `plugin.changes.insertColumn(change: Change, at: ?number) => Change`
->>>>>>> master
 
 Insert a new column after the current one or at the specific index (`at`).
 
@@ -102,41 +88,25 @@ Remove current row or the one at a specific index (`at`).
 
 #### `changes.removeColumn`
 
-<<<<<<< HEAD
-`plugin.changes.removeColumn(change: Change, at: Number?) => Change`
-=======
 `plugin.changes.removeColumn(change: Change, at: ?number) => Change`
->>>>>>> master
 
 Remove current column or the one at a specific index (`at`).
 
 #### `changes.moveSelection`
 
-<<<<<<< HEAD
-`plugin.changes.moveSelection(change: Change, column: Number, row: Number) => Change`
-=======
 `plugin.changes.moveSelection(change: Change, column: number, row: number) => Change`
->>>>>>> master
 
 Move the selection to a specific position in the table.
 
 #### `changes.moveSelectionBy`
 
-<<<<<<< HEAD
-`plugin.changes.moveSelectionBy(change: Change, column: Number, row: Number) => Change`
-=======
 `plugin.changes.moveSelectionBy(change: Change, column: number, row: number) => Change`
->>>>>>> master
 
 Move the selection by the given amount of columns and rows.
 
 #### `changes.setColumnAlign`
 
-<<<<<<< HEAD
-`plugin.changes.setColumnAlign(change: Change, align: String, at: Number) => Change`
-=======
 `plugin.changes.setColumnAlign(change: Change, align: string, at: number) => Change`
->>>>>>> master
 
 Sets column alignment for a given column (`at`), in the current table. `align`
 defaults to center, `at` is optional and defaults to current cursor position.

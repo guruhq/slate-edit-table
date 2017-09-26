@@ -6,7 +6,7 @@ var TablePosition = require('../TablePosition');
 /**
  * Insert a new row in current table
  *
- * @param {Object} opts
+ * @param {Options} opts The plugin options
  * @param {Slate.Change} change
  * @param {Number} at
  * @param {Function} textGetter

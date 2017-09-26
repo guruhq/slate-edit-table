@@ -6,11 +6,7 @@ module.exports = function(plugin, change) {
     const offset = 2;
     change
         .moveToRangeOf(cursorBlock)
-<<<<<<< HEAD
-        .move(offset)
-=======
         .move(offset);
->>>>>>> master
 
     plugin.changes
         .moveSelectionBy(change, -1, -1);

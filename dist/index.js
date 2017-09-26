@@ -12,12 +12,15 @@ var moveSelection = require('./changes/moveSelection');
 var moveSelectionBy = require('./changes/moveSelectionBy');
 var setColumnAlign = require('./changes/setColumnAlign');
 
+var Options = require('./options');
 var onEnter = require('./onEnter');
+var onModEnter = require('./onModEnter');
 var onTab = require('./onTab');
 var onBackspace = require('./onBackspace');
 var onUpDown = require('./onUpDown');
 var ALIGN = require('./ALIGN');
 var makeSchema = require('./makeSchema');
+var TablePosition = require('./TablePosition');
 
 var KEY_ENTER = 'enter';
 var KEY_TAB = 'tab';
@@ -26,15 +29,10 @@ var KEY_DOWN = 'down';
 var KEY_UP = 'up';
 
 /**
- * @param {String} opts.typeTable The type of table blocks
- * @param {String} opts.typeRow The type of row blocks
- * @param {String} opts.typeCell The type of cell blocks
+ * @param {Options} opts The plugin options
  */
 function EditTable(opts) {
-    opts = opts || {};
-    opts.typeTable = opts.typeTable || 'table';
-    opts.typeRow = opts.typeRow || 'table_row';
-    opts.typeCell = opts.typeCell || 'table_cell';
+    opts = new Options(opts);
 
     /**
      * Is the selection in a table
@@ -47,6 +45,19 @@ function EditTable(opts) {
         // Only handle events in cells
 
         return startBlock.type === opts.typeCell;
+    }
+
+    /**
+     * @param {State} state The current state
+     * @returns {TablePosition} The position of the selection start, in the current table
+     * @throws {Error} If the start of the selection is not in a table
+     */
+    function getPosition(state) {
+        if (!isSelectionInTable(state)) {
+            throw new Error('Not in a table');
+        }
+        var cell = state.startBlock;
+        return TablePosition.create(state, cell);
     }
 
     /**
@@ -83,7 +94,11 @@ function EditTable(opts) {
 
         switch (data.key) {
             case KEY_ENTER:
-                return onEnter.apply(undefined, args);
+                if (data.isMod && opts.exitBlockType) {
+                    return onModEnter.apply(undefined, args);
+                } else {
+                    return onEnter.apply(undefined, args);
+                }
             case KEY_TAB:
                 return onTab.apply(undefined, args);
             case KEY_BACKSPACE:
@@ -102,7 +117,8 @@ function EditTable(opts) {
         schema: schema,
 
         utils: {
-            isSelectionInTable: isSelectionInTable
+            isSelectionInTable: isSelectionInTable,
+            getPosition: getPosition
         },
 
         changes: {

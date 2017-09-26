@@ -3295,11 +3295,6 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-<<<<<<< HEAD
-slate@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.23.0.tgz#dba3aa8d6db4c99b4500827ddcd9cd5a667da20f"
-=======
 slate-base64-serializer@^0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/slate-base64-serializer/-/slate-base64-serializer-0.1.5.tgz#6206f2df41476af44b09c30d5a5b30dd79580363"
@@ -3323,7 +3318,6 @@ slate-prop-types@^0.1.5:
 slate-react@^0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.1.5.tgz#8681c64dd8db6e0323b93156331aa56c3fdf0fe2"
->>>>>>> master
   dependencies:
     debug "^2.3.2"
     get-window "^1.1.1"

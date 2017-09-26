@@ -1,17 +1,13 @@
 'use strict';
 
 var TablePosition = require('../TablePosition');
-
-var _require = require('immutable'),
-    List = _require.List;
-
 var ALIGN = require('../ALIGN');
 var createAlign = require('../createAlign');
 
 /**
  * Sets column alignment for a given column
  *
- * @param {Object} opts
+ * @param {Options} opts The plugin options
  * @param {Slate.Change} change
  * @param {Number} at
  * @param {String} align

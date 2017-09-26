@@ -27,19 +27,11 @@ const schema = {
 const Example = React.createClass({
     getInitialState() {
         return {
-<<<<<<< HEAD
-            state: Slate.State.fromJSON(stateJson),
-        };
-    },
-
-    onChange: function({ state }) {
-=======
             state: Slate.State.fromJSON(stateJson)
         };
     },
 
     onChange({ state }) {
->>>>>>> master
         this.setState({
             state
         });
