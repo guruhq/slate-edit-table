@@ -33,9 +33,7 @@ function setColumnAlign(opts, change) {
     newAlign[at] = align;
 
     change.setNodeByKey(table.key, {
-        data: {
-            align: Object.assign(table.data.toJS(), { align: newAlign })
-        }
+        data: Object.assign(table.data.toJS(), { align: newAlign })
     });
 
     return change;

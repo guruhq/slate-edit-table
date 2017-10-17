@@ -22,11 +22,11 @@ var ALIGN = require('./ALIGN');
 var makeSchema = require('./makeSchema');
 var TablePosition = require('./TablePosition');
 
-var KEY_ENTER = 'enter';
-var KEY_TAB = 'tab';
-var KEY_BACKSPACE = 'backspace';
-var KEY_DOWN = 'down';
-var KEY_UP = 'up';
+var KEY_ENTER = 'Enter';
+var KEY_TAB = 'Tab';
+var KEY_BACKSPACE = 'Backspace';
+var KEY_DOWN = 'ArrowDown';
+var KEY_UP = 'ArrowUp1';
 
 /**
  * @param {Options} opts The plugin options
@@ -83,18 +83,18 @@ function EditTable(opts) {
     /**
      * User is pressing a key in the editor
      */
-    function onKeyDown(e, data, change) {
+    function onKeyDown(event, change) {
         // Only handle events in cells
         if (!isSelectionInTable(change.state)) {
             return;
         }
 
         // Build arguments list
-        var args = [e, data, change, opts];
+        var args = [event, change, opts];
 
-        switch (data.key) {
+        switch (event.key) {
             case KEY_ENTER:
-                if (data.isMod && opts.exitBlockType) {
+                if (event.metaKey && opts.exitBlockType) {
                     return onModEnter.apply(undefined, args);
                 } else {
                     return onEnter.apply(undefined, args);

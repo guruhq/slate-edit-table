@@ -2,7 +2,7 @@
 
 var Slate = require('slate');
 
-function onBackspace(event, data, change, opts) {
+function onBackspace(event, change, opts) {
     var state = change.state;
     var startBlock = state.startBlock,
         startOffset = state.startOffset,
@@ -33,7 +33,7 @@ function onBackspace(event, data, change, opts) {
             return change;
         }
 
-        var cellRange = Slate.Selection.create().moveToRangeOf(block);
+        var cellRange = Slate.Range.create().moveToRangeOf(block);
 
         return change.deleteAtRange(cellRange);
     });

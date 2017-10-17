@@ -260,12 +260,12 @@ function rowsContainRequiredColumns(opts) {
                     add = _ref4.add;
 
                 invalids.forEach(function (child) {
-                    return change.removeNodeByKey(child.key, { normalize: false });
+                    change.removeNodeByKey(child.key);
                 });
 
                 Range(0, add).forEach(function () {
                     var cell = makeEmptyCell(opts);
-                    return change.insertNodeByKey(row.key, 0, cell, { normalize: false });
+                    change.insertNodeByKey(row.key, 0, cell);
                 });
             });
 

@@ -21,12 +21,12 @@ function selectAllText(change) {
  * Pressing "Tab" moves the cursor to the next cell
  * and select the whole text
  */
-function onTab(event, data, change, opts) {
+function onTab(event, change, opts) {
     event.preventDefault();
     var _change = change,
         state = _change.state;
 
-    var direction = data.isShift ? -1 : +1;
+    var direction = event.shiftKey ? -1 : +1;
 
     // Create new row if needed
     var startBlock = state.startBlock,
