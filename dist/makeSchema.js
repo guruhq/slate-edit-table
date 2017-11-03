@@ -297,11 +297,11 @@ function tableContainAlignData(opts) {
          * @param {Map} align
          * @param {Number} columns
          */
-        normalize: function normalize(change, node, _ref5) {
+        normalize: function normalize(transform, node, _ref5) {
             var align = _ref5.align,
                 columns = _ref5.columns;
 
-            return change.setNodeByKey(node.key, {
+            return transform.setNodeByKey(node.key, {
                 data: Object.assign(node.data.toJS(), { align: createAlign(columns, align) })
             }, { normalize: false });
         }
