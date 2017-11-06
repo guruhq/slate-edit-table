@@ -260,12 +260,12 @@ function rowsContainRequiredColumns(opts) {
                     add = _ref4.add;
 
                 invalids.forEach(function (child) {
-                    change.removeNodeByKey(child.key);
+                    change.removeNodeByKey(child.key, { normalize: false });
                 });
 
                 Range(0, add).forEach(function () {
                     var cell = makeEmptyCell(opts);
-                    change.insertNodeByKey(row.key, 0, cell);
+                    change.insertNodeByKey(row.key, 0, cell, { normalize: false });
                 });
             });
 
@@ -310,7 +310,8 @@ function tableContainAlignData(opts) {
 
 function makeEmptyCell(opts) {
     return Slate.Block.create({
-        type: opts.typeCell
+        type: opts.typeCell,
+        nodes: List([Slate.Text.create('')])
     });
 }
 
