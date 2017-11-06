@@ -47,7 +47,7 @@ function noBlocksWithinCell(opts) {
         normalize: function normalize(change, node, nestedBlocks) {
             nestedBlocks.forEach(function (block) {
                 return block.nodes.forEach(function (grandChild) {
-                    change.unwrapNodeByKey(grandChild.key);
+                    change.unwrapNodeByKey(grandChild.key, { normalize: false });
                 });
             });
 
@@ -260,12 +260,17 @@ function rowsContainRequiredColumns(opts) {
                     add = _ref4.add;
 
                 invalids.forEach(function (child) {
-                    change.removeNodeByKey(child.key, { normalize: false });
+                    if (!Slate.Block.isBlock(child)) {
+                        change.wrapBlockByKey(child.key, opts.typeCell, { normalize: false });
+                        return;
+                    }
+
+                    change.setNodeByKey(child.key, opts.typeCell, { normalize: false });
                 });
 
-                Range(0, add).forEach(function () {
+                Range(invalids.size, add).forEach(function (temp, index) {
                     var cell = makeEmptyCell(opts);
-                    change.insertNodeByKey(row.key, 0, cell, { normalize: false });
+                    change.insertNodeByKey(row.key, invalids.size + index, cell, { normalize: false });
                 });
             });
 
