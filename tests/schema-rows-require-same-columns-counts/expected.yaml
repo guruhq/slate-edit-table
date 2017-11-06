@@ -40,7 +40,7 @@ document:
               nodes:
                 - kind: text
                   leaves:
-                    - text: ""
+                    - text: "There is no columns here"
             - kind: block
               type: table_cell
               nodes:
@@ -63,13 +63,13 @@ document:
               nodes:
                 - kind: text
                   leaves:
-                    - text: ""
+                    - text: "Row 3, Col 1"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
                   leaves:
-                    - text: "Row 3, Col 1"
+                    - text: "Row 3, Col 2"
             - kind: block
               type: table_cell
               nodes:

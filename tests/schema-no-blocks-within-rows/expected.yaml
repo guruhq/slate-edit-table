@@ -7,6 +7,8 @@ document:
               - left
               - left
               - left
+              - left
+              - left
       nodes:
         # Row 1
         - kind: block
@@ -30,3 +32,9 @@ document:
                 - kind: text
                   leaves:
                     - text: "Row 1, Col 3"
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: "Row 1, Col 4"
