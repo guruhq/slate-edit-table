@@ -9,6 +9,7 @@ const EditList = require('../lib');
 describe('slate-edit-table', function() {
     const tests = fs.readdirSync(__dirname);
     const plugin = EditList();
+    global.window = { navigator: { platform: 'Mac' }};
 
     tests.forEach(function(test) {
         if (test[0] === '.' || path.extname(test).length > 0) return;
