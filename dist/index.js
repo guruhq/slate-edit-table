@@ -94,7 +94,9 @@ function EditTable(opts) {
 
         switch (event.key) {
             case KEY_ENTER:
-                if (event.metaKey && opts.exitBlockType) {
+                var isMac = window.navigator.platform.includes('Mac');
+                var property = isMac ? 'metaKey' : 'ctrlKey';
+                if (event[property] && opts.exitBlockType) {
                     return onModEnter.apply(undefined, args);
                 } else {
                     return onEnter.apply(undefined, args);
