@@ -46,8 +46,14 @@ function noBlocksWithinCell(opts) {
         // If any, unwrap all nested blocks
         normalize: function normalize(change, node, nestedBlocks) {
             nestedBlocks.forEach(function (block) {
-                return block.nodes.forEach(function (grandChild) {
-                    change.unwrapNodeByKey(grandChild.key, { normalize: false });
+                return block.nodes.forEach(function (grandChild, index) {
+                    if (change.state.document.hasDescendant(grandChild.key)) {
+                        if (grandChild.kind === 'text' && index !== 0) {
+                            change.insertTextByKey(grandChild.key, 0, '\n').unwrapNodeByKey(grandChild.key, { normalize: false });
+                        } else {
+                            change.unwrapNodeByKey(grandChild.key, { normalize: false });
+                        }
+                    }
                 });
             });
 
