@@ -45,8 +45,8 @@ function noBlocksWithinCell(opts) {
 
         // If any, unwrap all nested blocks
         normalize: function normalize(change, node, nestedBlocks) {
-            nestedBlocks.forEach(function (block) {
-                return block.nodes.forEach(function (grandChild, index) {
+            nestedBlocks.forEach(function (block, index) {
+                return block.nodes.forEach(function (grandChild) {
                     if (change.state.document.hasDescendant(grandChild.key)) {
                         if (grandChild.kind === 'text' && index !== 0) {
                             change.insertTextByKey(grandChild.key, 0, '\n').unwrapNodeByKey(grandChild.key, { normalize: false });
