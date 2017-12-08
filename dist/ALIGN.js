@@ -1,5 +1,8 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 var ALIGN = {
     LEFT: 'left',
     RIGHT: 'right',
@@ -8,4 +11,4 @@ var ALIGN = {
 
 ALIGN.DEFAULT = ALIGN.LEFT;
 
-module.exports = ALIGN;
+exports.default = ALIGN;

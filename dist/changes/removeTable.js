@@ -1,25 +1,26 @@
 'use strict';
 
-var TablePosition = require('../TablePosition');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+require('slate');
+
+var _utils = require('../utils');
 
 /**
- * Delete the whole table
- *
- * @param {Options} opts The plugin options
- * @param {Slate.Change} change
- * @param {Number} at
- * @return {Slate.Change}
+ * Delete the whole table at position
  */
-function removeTable(opts, change, at) {
-  var state = change.state;
-  var startBlock = state.startBlock;
+function removeTable(opts, change) {
+    var value = change.value;
+    var startBlock = value.startBlock;
 
 
-  var pos = TablePosition.create(state, startBlock);
-  var table = pos.table;
+    var pos = _utils.TablePosition.create(value, startBlock);
+    var table = pos.table;
 
 
-  return change.removeNodeByKey(table.key);
+    return change.removeNodeByKey(table.key);
 }
 
-module.exports = removeTable;
+exports.default = removeTable;

@@ -1,21 +1,22 @@
 'use strict';
 
-var TablePosition = require('../TablePosition');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+require('slate');
+
+var _utils = require('../utils');
 
 /**
  * Remove current row in a table. Clear it if last remaining row
- *
- * @param {Options} opts The plugin options
- * @param {Slate.Change} change
- * @param {Number} at
- * @return {Slate.Change}
  */
 function removeRow(opts, change, at) {
-    var state = change.state;
-    var startBlock = state.startBlock;
+    var value = change.value;
+    var startBlock = value.startBlock;
 
 
-    var pos = TablePosition.create(state, startBlock);
+    var pos = _utils.TablePosition.create(value, startBlock);
     var table = pos.table;
 
 
@@ -27,17 +28,16 @@ function removeRow(opts, change, at) {
     // Update table by removing the row
     if (pos.getHeight() > 1) {
         change.removeNodeByKey(row.key);
-    }
-    // If last remaining row, clear it instead
-    else {
-            row.nodes.forEach(function (cell) {
-                cell.nodes.forEach(function (node) {
-                    change.removeNodeByKey(node.key);
-                });
+    } else {
+        // If last remaining row, clear it instead
+        row.nodes.forEach(function (cell) {
+            cell.nodes.forEach(function (node) {
+                change.removeNodeByKey(node.key);
             });
-        }
+        });
+    }
 
     return change;
 }
 
-module.exports = removeRow;
+exports.default = removeRow;

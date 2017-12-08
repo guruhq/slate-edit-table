@@ -1,17 +1,24 @@
-const TablePosition = require('../utils/TablePosition');
-const moveSelectionBy = require('../changes/moveSelectionBy');
-const insertRow = require('../changes/insertRow');
+'use strict';
+
+var TablePosition = require('../utils/TablePosition');
+var moveSelectionBy = require('../changes/moveSelectionBy');
+var insertRow = require('../changes/insertRow');
 
 /**
  * Go to the row below on Enter if possible, if not, create a new row.
  */
 function onEnter(event, change, opts) {
     event.preventDefault();
-    const { value } = change;
+    var _change = change,
+        value = _change.value;
 
     // Create new row if needed
-    const { startBlock, selection } = state;
-    const pos = TablePosition.create(state, startBlock);
+
+    var _state = state,
+        startBlock = _state.startBlock,
+        selection = _state.selection;
+
+    var pos = TablePosition.create(state, startBlock);
     if (pos.isLastRow()) {
         insertRow(opts, change);
     }
