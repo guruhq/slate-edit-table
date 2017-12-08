@@ -5,6 +5,8 @@
 
 A Slate plugin to handle table edition.
 
+Demo: [gitbookio.github.io/slate-edit-table/](https://gitbookio.github.io/slate-edit-table/)
+
 ### Install
 
 ```
@@ -42,13 +44,13 @@ const plugins = [
 
 #### `utils.isSelectionInTable`
 
-`plugin.utils.isSelectionInTable(state: State) => boolean`
+`plugin.utils.isSelectionInTable(value: Slate.Value) => boolean`
 
 Return true if selection is inside a table cell.
 
 #### `utils.getPosition`
 
-`plugin.utils.getPosition(state: State) => TablePosition`
+`plugin.utils.getPosition(value: Slate.Value) => TablePosition`
 
 Returns the detailed position in the current table. Throws if not in a table.
 
@@ -111,10 +113,14 @@ Move the selection by the given amount of columns and rows.
 Sets column alignment for a given column (`at`), in the current table. `align`
 defaults to center, `at` is optional and defaults to current cursor position.
 
+> The `align` values are stored in the table node's data.
+> `table.node.data.get('align')` should be an array of aligns string, corresponding to
+each column.
+
 ### TablePosition
 
 An instance of `TablePosition` represents a position within a table (row and column).
-You can get your current position in a table by using `plugin.utils.getPosition(state)`.
+You can get your current position in a table by using `plugin.utils.getPosition(value)`.
 
 #### `position.getWidth() => number`
 

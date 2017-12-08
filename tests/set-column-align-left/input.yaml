@@ -4,7 +4,7 @@ document:
       type: table
       data:
         align:
-            - left
+            - center
             - left
       nodes:
         - kind: block

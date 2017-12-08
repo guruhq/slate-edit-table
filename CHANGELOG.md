@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.13.1] - 2017-12-05
+
+- Improve `isSelectionInTable` to check for both end of the selection to be in the same table.
+
+## [0.13.0] - 2017-11-22
+
+**BREAKING**
+
+- Upgrade to be compatible with Slate 0.30.x
+
+## [0.12.0] - 2017-11-02
+
+**BREAKING**
+
+- Upgrade to be compatible with Slate 0.27.x
+
 ## [0.11.0] - 2017-09-20
 
 **BREAKING**
