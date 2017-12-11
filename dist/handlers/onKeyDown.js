@@ -48,10 +48,12 @@ function onKeyDown(opts, event, change, editor) {
 
     // Build arguments list
     var args = [event, change, editor, opts];
+    var isMac = window.navigator.platform.includes('Mac');
+    var property = isMac ? 'metaKey' : 'ctrlKey';
 
     switch (event.key) {
         case KEY_ENTER:
-            if (event.metaKey && opts.exitBlockType) {
+            if (event[property] && opts.exitBlockType) {
                 return _onModEnter2.default.apply(undefined, args);
             }
             return _onEnter2.default.apply(undefined, args);

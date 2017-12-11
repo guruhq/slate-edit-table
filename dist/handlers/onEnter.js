@@ -1,8 +1,22 @@
 'use strict';
 
-var TablePosition = require('../utils/TablePosition');
-var moveSelectionBy = require('../changes/moveSelectionBy');
-var insertRow = require('../changes/insertRow');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _TablePosition = require('../utils/TablePosition');
+
+var _TablePosition2 = _interopRequireDefault(_TablePosition);
+
+var _moveSelectionBy = require('../changes/moveSelectionBy');
+
+var _moveSelectionBy2 = _interopRequireDefault(_moveSelectionBy);
+
+var _insertRow = require('../changes/insertRow');
+
+var _insertRow2 = _interopRequireDefault(_insertRow);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Go to the row below on Enter if possible, if not, create a new row.
@@ -14,22 +28,21 @@ function onEnter(event, change, opts) {
 
     // Create new row if needed
 
-    var _state = state,
-        startBlock = _state.startBlock,
-        selection = _state.selection;
+    var startBlock = value.startBlock,
+        selection = value.selection;
 
-    var pos = TablePosition.create(state, startBlock);
+    var pos = _TablePosition2.default.create(value, startBlock);
     if (pos.isLastRow()) {
-        insertRow(opts, change);
+        (0, _insertRow2.default)(opts, change);
     }
 
     // Move back to initial cell (insertRow moves selection automatically).
     change = change.select(selection);
 
     // Move
-    moveSelectionBy(opts, change, 0, 1);
+    (0, _moveSelectionBy2.default)(opts, change, 0, 1);
 
     return change;
 }
 
-module.exports = onEnter;
+exports.default = onEnter;

@@ -80,11 +80,7 @@ Remove current table.
 
 #### `changes.removeRow`
 
-<<<<<<< HEAD
 `plugin.changes.removeRow(change: Change, at: Number?) => Change`
-=======
-`plugin.changes.removeRow(change: Change, at: ?number) => Change`
->>>>>>> master
 
 Remove current row or the one at a specific index (`at`).
 

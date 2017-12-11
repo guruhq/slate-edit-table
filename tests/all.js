@@ -20,6 +20,7 @@ function deserializeValue(json) {
 
 describe('slate-edit-table', () => {
     const tests = fs.readdirSync(__dirname);
+    global.window = { navigator: { platform: 'Mac' } };
 
     tests.forEach(test => {
         if (test[0] === '.' || path.extname(test).length > 0) return;
