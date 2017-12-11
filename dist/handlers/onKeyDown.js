@@ -35,7 +35,7 @@ var KEY_ENTER = 'Enter';
 var KEY_TAB = 'Tab';
 var KEY_BACKSPACE = 'Backspace';
 var KEY_DOWN = 'ArrowDown';
-var KEY_UP = 'ArrowUp1';
+var KEY_UP = 'ArrowUp';
 
 /**
  * User is pressing a key in the editor

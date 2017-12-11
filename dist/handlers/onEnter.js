@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Go to the row below on Enter if possible, if not, create a new row.
  */
-function onEnter(event, change, opts) {
+function onEnter(event, change, editor, opts) {
     event.preventDefault();
     var _change = change,
         value = _change.value;
