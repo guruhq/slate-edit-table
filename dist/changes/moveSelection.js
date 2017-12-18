@@ -1,27 +1,27 @@
 'use strict';
 
-var TablePosition = require('../TablePosition');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+require('slate');
+
+var _utils = require('../utils');
 
 /**
  * Move selection to {x,y}
- *
- * @param {Options} opts The plugin options
- * @param {Slate.Change} change
- * @param {Number} x
- * @param {Number} y
- * @return {Slate.Change}
  */
 function moveSelection(opts, change, x, y) {
-    var state = change.state;
-    var startBlock = state.startBlock,
-        startOffset = state.startOffset;
+    var value = change.value;
+    var startBlock = value.startBlock;
+    var startOffset = value.startOffset;
 
 
     if (startBlock.type !== opts.typeCell) {
         throw new Error('moveSelection can only be applied from within a cell');
     }
 
-    var pos = TablePosition.create(state, startBlock);
+    var pos = _utils.TablePosition.create(value, startBlock);
     var table = pos.table;
 
 
@@ -36,4 +36,4 @@ function moveSelection(opts, change, x, y) {
     return change.collapseToEndOf(cell).moveOffsetsTo(startOffset);
 }
 
-module.exports = moveSelection;
+exports.default = moveSelection;

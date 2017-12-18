@@ -69,11 +69,7 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-<<<<<<< HEAD
-                  leaves: 
-=======
                   leaves:
->>>>>>> bb32a6a14ef81b49612977f2c66d9f620e490d96
                     - text: "Col 2, Row 2"
     - kind: block
       type: paragraph

@@ -1,29 +1,32 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var TablePosition = require('../TablePosition');
-var moveSelection = require('./moveSelection');
+require('slate');
+
+var _utils = require('../utils');
+
+var _changes = require('../changes');
 
 /**
  * Move selection by a {x,y} relative movement
- *
- * @param {Options} opts The plugin options
- * @param {Slate.Change} change
- * @param {Number} x Move horizontally by x
- * @param {Number} y Move vertically by y
- * @return {Slate.Change}
  */
-function moveSelectionBy(opts, change, x, y) {
-    var state = change.state;
-    var startBlock = state.startBlock;
+function moveSelectionBy(opts, change, x, //  Move horizontally by x
+y // Move vertically by y
+) {
+    var value = change.value;
+    var startBlock = value.startBlock;
 
 
     if (startBlock.type !== opts.typeCell) {
         throw new Error('moveSelectionBy can only be applied in a cell');
     }
 
-    var pos = TablePosition.create(state, startBlock);
+    var pos = _utils.TablePosition.create(value, startBlock);
     var rowIndex = pos.getRowIndex();
     var colIndex = pos.getColumnIndex();
     var width = pos.getWidth();
@@ -39,21 +42,17 @@ function moveSelectionBy(opts, change, x, y) {
         return change;
     }
 
-    return moveSelection(opts, change, absX, absY);
+    return (0, _changes.moveSelection)(opts, change, absX, absY);
 }
 
 /**
- * Normalize position in a table. If x is out of the row, update y accordingly
- * @param {Number} x
- * @param {Number} y
- * @param {Number} width
- * @param {Number} height
- * @return {Array<Number>} [-1, -1] if the new selection is out of table
+ * Normalize position in a table. If x is out of the row, update y accordingly.
+ * Returns [-1, -1] if the new selection is out of table
  */
 function normPos(x, y, width, height) {
     if (x < 0) {
         x = width - 1;
-        y--;
+        y -= 1;
     }
 
     if (y < 0) {
@@ -62,7 +61,7 @@ function normPos(x, y, width, height) {
 
     if (x >= width) {
         x = 0;
-        y++;
+        y += 1;
     }
 
     if (y >= height) {
@@ -72,4 +71,4 @@ function normPos(x, y, width, height) {
     return [x, y];
 }
 
-module.exports = moveSelectionBy;
+exports.default = moveSelectionBy;

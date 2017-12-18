@@ -1,29 +1,29 @@
 'use strict';
 
-var createRow = require('../createRow');
-var TablePosition = require('../TablePosition');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+require('slate');
+
+var _utils = require('../utils');
 
 /**
  * Insert a new row in current table
- *
- * @param {Options} opts The plugin options
- * @param {Slate.Change} change
- * @param {Number} at
- * @param {Function} textGetter
- * @return {Slate.Change}
  */
-function insertRow(opts, change, at, textGetter) {
-    var state = change.state;
-    var startBlock = state.startBlock;
+function insertRow(opts, change, at, // row index
+textGetter) {
+    var value = change.value;
+    var startBlock = value.startBlock;
 
 
-    var pos = TablePosition.create(state, startBlock);
+    var pos = _utils.TablePosition.create(value, startBlock);
     var table = pos.table;
 
     // Create a new row with the right count of cells
 
     var firstRow = table.nodes.get(0);
-    var newRow = createRow(opts, firstRow.nodes.size, textGetter);
+    var newRow = (0, _utils.createRow)(opts, firstRow.nodes.size, textGetter);
 
     if (typeof at === 'undefined') {
         at = pos.getRowIndex() + 1;
@@ -32,4 +32,4 @@ function insertRow(opts, change, at, textGetter) {
     return change.insertNodeByKey(table.key, at, newRow).collapseToEndOf(newRow.nodes.get(pos.getColumnIndex()));
 }
 
-module.exports = insertRow;
+exports.default = insertRow;

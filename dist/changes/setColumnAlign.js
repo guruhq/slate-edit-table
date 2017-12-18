@@ -1,26 +1,30 @@
 'use strict';
 
-var TablePosition = require('../TablePosition');
-var ALIGN = require('../ALIGN');
-var createAlign = require('../createAlign');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+require('slate');
+
+var _utils = require('../utils');
+
+var _ALIGN = require('../ALIGN');
+
+var _ALIGN2 = _interopRequireDefault(_ALIGN);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Sets column alignment for a given column
- *
- * @param {Options} opts The plugin options
- * @param {Slate.Change} change
- * @param {Number} at
- * @param {String} align
- * @return {Slate.Change}
  */
 function setColumnAlign(opts, change) {
-    var align = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ALIGN.DEFAULT;
+    var align = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _ALIGN2.default.DEFAULT;
     var at = arguments[3];
-    var state = change.state;
-    var startBlock = state.startBlock;
+    var value = change.value;
+    var startBlock = value.startBlock;
 
 
-    var pos = TablePosition.create(state, startBlock);
+    var pos = _utils.TablePosition.create(value, startBlock);
     var table = pos.table;
 
     // Figure out column position
@@ -29,14 +33,13 @@ function setColumnAlign(opts, change) {
         at = pos.getColumnIndex();
     }
 
-    var newAlign = createAlign(pos.getWidth(), table.data.get('align'));
+    var newAlign = (0, _utils.createAlign)(pos.getWidth(), table.data.get('align'));
     newAlign[at] = align;
 
     change.setNodeByKey(table.key, {
-        data: Object.assign(table.data.toJS(), { align: newAlign })
+        data: table.data.set('align', newAlign)
     });
 
     return change;
 }
-
-module.exports = setColumnAlign;
+exports.default = setColumnAlign;

@@ -1,28 +1,31 @@
 'use strict';
 
-var _require = require('immutable'),
-    List = _require.List;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var TablePosition = require('../TablePosition');
+require('slate');
+
+var _immutable = require('immutable');
+
+var _utils = require('../utils');
 
 /**
  * Delete current column in a table
  *
-<<<<<<< HEAD:lib/changes/removeColumn.js
- * @param {Object} opts
-=======
  * @param {Options} opts The plugin options
->>>>>>> master:lib/changes/removeColumn.js
  * @param {Slate.Change} change
  * @param {Number} at
  * @return {Slate.Change}
+=======
  */
+
 function removeColumn(opts, change, at) {
-    var state = change.state;
-    var startBlock = state.startBlock;
+    var value = change.value;
+    var startBlock = value.startBlock;
 
 
-    var pos = TablePosition.create(state, startBlock);
+    var pos = _utils.TablePosition.create(value, startBlock);
     var table = pos.table;
 
 
@@ -36,30 +39,28 @@ function removeColumn(opts, change, at) {
     if (pos.getWidth() > 1) {
         rows.forEach(function (row) {
             var cell = row.nodes.get(at);
-            change.removeNodeByKey(cell.key);
+            change.removeNodeByKey(cell.key, { normalize: false });
         });
 
         // Update alignment
-        var align = List(table.data.get('align'));
-        align = align.delete(at);
+        var align = table.data.get('align');
+        align = (0, _immutable.List)(align).delete(at).toArray();
         change.setNodeByKey(table.key, {
-            data: Object.assign(table.data.toJS(), { align: align })
+            data: table.data.set('align', align)
         });
-    }
-    // If last column, clear text in cells instead
-    else {
-            rows.forEach(function (row) {
-                row.nodes.forEach(function (cell) {
-                    cell.nodes.forEach(function (node) {
-                        // We clear the texts in the cells
-                        change.removeNodeByKey(node.key);
-                    });
+    } else {
+        // If last column, clear text in cells instead
+        rows.forEach(function (row) {
+            row.nodes.forEach(function (cell) {
+                cell.nodes.forEach(function (node) {
+                    // We clear the texts in the cells
+                    change.removeNodeByKey(node.key);
                 });
             });
-        }
+        });
+    }
 
     // Replace the table
     return change;
 }
-
-module.exports = removeColumn;
+exports.default = removeColumn;

@@ -12,11 +12,7 @@ document:
           nodes:
             - kind: text
               leaves:
-<<<<<<< HEAD
-                - text: "No rows"
-=======
                 - text: "No table"
->>>>>>> bb32a6a14ef81b49612977f2c66d9f620e490d96
 
     # A cell without surrounding tr gets inserted within a table, and within a tr
     - kind: block
