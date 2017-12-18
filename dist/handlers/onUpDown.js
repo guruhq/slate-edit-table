@@ -11,7 +11,7 @@ var _utils = require('../utils');
 var _changes = require('../changes');
 
 function onUpDown(event, change, editor, opts) {
-    var direction = event.key === 'UpArrow' ? -1 : +1;
+    var direction = event.key === 'ArrowUp' ? -1 : +1;
     var pos = _utils.TablePosition.create(change.value, change.value.startBlock);
 
     if (pos.isFirstRow() && direction === -1 || pos.isLastRow() && direction === +1) {
@@ -20,7 +20,7 @@ function onUpDown(event, change, editor, opts) {
     }
     event.preventDefault();
 
-    (0, _changes.moveSelectionBy)(opts, change, 0, event.key === 'UpArrow' ? -1 : +1);
+    (0, _changes.moveSelectionBy)(opts, change, 0, event.key === 'ArrowUp' ? -1 : +1);
 
     return change;
 }
