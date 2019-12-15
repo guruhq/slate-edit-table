@@ -1,27 +1,38 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-require('slate');
+require("slate");
 
-var _utils = require('../utils');
+var _utils = require("../utils");
 
-var _changes = require('../changes');
+var _changes = require("../changes");
 
 function onUpDown(event, change, editor, opts) {
-    var direction = event.key === 'ArrowUp' ? -1 : +1;
-    var pos = _utils.TablePosition.create(change.value, change.value.startBlock);
+  var value = change.value;
 
-    if (pos.isFirstRow() && direction === -1 || pos.isLastRow() && direction === +1) {
-        // Let the default behavior move out of the table
-        return undefined;
-    }
-    event.preventDefault();
+  var direction = event.key === "ArrowUp" ? -1 : +1;
+  var pos = _utils.TablePosition.create(opts, value.document, value.startKey);
 
-    (0, _changes.moveSelectionBy)(opts, change, 0, event.key === 'ArrowUp' ? -1 : +1);
+  if (pos.isFirstRow() && direction === -1 || pos.isLastRow() && direction === +1) {
+    // Let the default behavior move out of the table
+    return undefined;
+  }
 
-    return change;
+  if (direction === -1 && !pos.isTopOfCell()) {
+    return undefined;
+  }
+
+  if (direction === +1 && !pos.isBottomOfCell()) {
+    return undefined;
+  }
+
+  event.preventDefault();
+
+  (0, _changes.moveSelectionBy)(opts, change, 0, direction);
+
+  return change;
 }
 exports.default = onUpDown;

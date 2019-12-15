@@ -1,23 +1,30 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-var _slate = require('slate');
+var _slate = require("slate");
 
 /**
  * Create a new cell
  */
-function createCell(type) {
-    var text = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-    return _slate.Block.create({
-        type: type,
-        nodes: [_slate.Text.fromJSON({
-            kind: 'text',
-            text: text
-        })]
-    });
+function createCell(opts, nodes) {
+  return _slate.Block.create({
+    type: opts.typeCell,
+    nodes: nodes || [createEmptyContent(opts)]
+  });
 }
+
+/**
+ * Create a new default content block
+ */
+
+function createEmptyContent(opts) {
+  return _slate.Block.create({
+    type: opts.typeContent,
+    nodes: [_slate.Text.create()]
+  });
+}
+
 exports.default = createCell;

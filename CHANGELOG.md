@@ -1,9 +1,85 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## [0.18.1] - 2019-01-16
+
+- Fixed issue that prevented from using backspace at edges of inlines inside a cell
+
+## [0.18.0] - 2018-08-29
+
+- Now using GitBook's fork of Slate
+
+## [0.17.1] - 2018-08-29
+
+- Greatly improved copy/paste behavior by adding onCopy and onPaste handlers.
+
+## [0.17.0] - 2018-07-26
+
+- Remove `key` parameter of getPosition, and create a function `getPositionByKey`
+
+## [0.16.2] - 2018-07-16
+
+- Add byKey variants to remove utils. removeRowByKey, removeColumnByKey, removeTableByKey
+
+## [0.16.1] - 2018-06-28
+
+- Improve behavior of Backspace when deleting whole cells https://github.com/GitbookIO/slate-edit-table/pull/79
+
+## [0.16.0] - 2018-06-27
+
+- Fix some case where pressing Backspace would unexpectedly clear the whole cell
+
+## [0.16.0 (pre)] - 2018-06-27
+
+- Add keyboard interactions to handle multiple blocks in cells:
+  - Split block when pressing <kbd>Shift+Enter</kbd>
+  - Split block when pressing <kbd>Enter</kbd> inside the cell
+
+## [0.15.2] - 2018-06-19
+
+- Export TablePosition type
+
+## [0.15.1] - 2018-06-13
+
+- Add key option to `getPosition`
+
+## [0.15.0] - 2018-04-19
+
+- Allow blocks in cells
+- Align for columns have been removed
+- Improve package size by publishing only the `dist` folder
+
+## [0.14.3] - 2018-02-06
+
+- Fix normalization of multiple blocks in cells
+
+## [0.14.2] - 2018-02-06
+
+## [0.14.1] - 2018-02-06
+
+- Fixed build
+
+## [0.14.0] - 2018-02-05
+
+**BREAKING**
+
+- Upgrade to be compatible with Slate 0.32.x
+- Fixed missing peerDependencies for `eslint-config-gitbook`
+
+## [0.13.3] - 2018-01-08
+
+- Fix peer depedency range for slate to include 0.30 and 0.31
+
+## [0.13.2] - 2018-01-08
+
+- Add `isSelectionOutOfTable`
+- Fix keys detection
+- Fix selection errors when deleting table
 
 ## [0.13.1] - 2017-12-05
 
@@ -38,44 +114,52 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Fixed cursor issues when inserting rows using Tab (#26)
 
 ## [0.10.1] - 2017-07-13
-  [0.10.1]: https://github.com/GitbookIO/slate-edit-table/compare/0.10.0...0.10.1
+
+[0.10.1]: https://github.com/GitbookIO/slate-edit-table/compare/0.10.0...0.10.1
 
 - Fix rule to prevent extra blocks in rows
 
 ## [0.10.0] - 2017-07-13
-  [0.10.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.9.0...0.10.0
+
+[0.10.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.9.0...0.10.0
 
 - Add rule to prevent nested blocks in cells
 
 ## [0.9.0] - 2017-04-21
-  [0.9.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.4...0.9.0
+
+[0.9.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.4...0.9.0
 
 - Update slate to `^0.19.x`
 
 ## [0.8.4] - 2016-11-30
-  [0.8.4]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.3...0.8.4
+
+[0.8.4]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.3...0.8.4
 
 - Update slate peer dependency to prevent NPM warnings when used with `0.15.x`
 
 ## [0.8.3] - 2016-11-09
-  [0.8.3]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.2...0.8.3
+
+[0.8.3]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.2...0.8.3
 
 - Enforce align to be Immutable.List
 - Undo is now fixed, using GitbookIO:slate
 
 ## [0.8.2] - 2016-11-03
-  [0.8.2]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.1...0.8.2
+
+[0.8.2]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.1...0.8.2
 
 - Move slate to `peerDependencies`
 
 ## [0.8.1] - 2016-11-01
-  [0.8.1]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.0...0.8.1
+
+[0.8.1]: https://github.com/GitbookIO/slate-edit-table/compare/0.8.0...0.8.1
 
 - Add schema to normalize `align` in table
 - `insertColumn` and `removeColumn` update correctly the alignment
 
 ## [0.8.0] - 2016-10-27
-  [0.8.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.7.0...0.8.0
+
+[0.8.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.7.0...0.8.0
 
 - Expose `setColumnAlign` transform
 - Expose `ALIGN.{LEFT,RIGHT,CENTER}` constants
@@ -83,13 +167,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   [#13](https://github.com/GitbookIO/slate-edit-table/issues/13)
 
 ## [0.7.0] - 2016-10-27
-  [0.7.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.6.0...0.7.0
+
+[0.7.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.6.0...0.7.0
 
 - Adapt for upcoming Slate release
 - Improve stability
 
 ## [0.6.0] - 2016-09-23
-  [0.6.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.5.1...0.6.0
+
+[0.6.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.5.1...0.6.0
 
 - Expose `moveSelectionBy` transform
 - `removeColumn` clears the column instead, if it is the last remaining column
@@ -97,19 +183,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Undo of `insertColumn` when cursor is in inserted column
 
 ## [0.5.1] - 2016-09-15
-  [0.5.1]: https://github.com/GitbookIO/slate-edit-table/compare/0.5.0...0.5.1
+
+[0.5.1]: https://github.com/GitbookIO/slate-edit-table/compare/0.5.0...0.5.1
 
 - `insertTable` does not grab text from current block anymore, and simply inserts an empty table.
 - Up/Down arrows behavior inside tables
 
 ## [0.5.0] - 2016-09-15
-  [0.5.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.4.0...0.5.0
+
+[0.5.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.4.0...0.5.0
 
 - `TablePosition.is{First|Last}{Row|Column|Cell}` methods
 - **BREAKING** Now uses `slate^0.14.x`
 - Split transform `moveSelection` into `moveSelection` and `moveSelectionBy`
 
 ## [0.4.0] - 2016-09-06
-  [0.4.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.3.0...0.4.0
+
+[0.4.0]: https://github.com/GitbookIO/slate-edit-table/compare/0.3.0...0.4.0
 
 - Schema normalization rules

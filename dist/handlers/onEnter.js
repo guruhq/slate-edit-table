@@ -1,48 +1,34 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-var _TablePosition = require('../utils/TablePosition');
+require("slate");
 
-var _TablePosition2 = _interopRequireDefault(_TablePosition);
+var _utils = require("../utils");
 
-var _moveSelectionBy = require('../changes/moveSelectionBy');
-
-var _moveSelectionBy2 = _interopRequireDefault(_moveSelectionBy);
-
-var _insertRow = require('../changes/insertRow');
-
-var _insertRow2 = _interopRequireDefault(_insertRow);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _changes = require("../changes");
 
 /**
- * Go to the row below on Enter if possible, if not, create a new row.
+ * Insert a new row when pressing "Enter"
  */
 function onEnter(event, change, editor, opts) {
-    event.preventDefault();
-    var _change = change,
-        value = _change.value;
+  event.preventDefault();
+  var _change$value = change.value,
+      selection = _change$value.selection,
+      document = _change$value.document;
 
-    // Create new row if needed
+  var pos = _utils.TablePosition.create(opts, document, selection.startKey);
 
-    var startBlock = value.startBlock,
-        selection = value.selection;
+  if (!selection.hasFocusAtStartOf(pos.cell) && !selection.hasFocusAtEndOf(pos.cell)) {
+    return undefined;
+  }
 
-    var pos = _TablePosition2.default.create(value, startBlock);
-    if (pos.isLastRow()) {
-        (0, _insertRow2.default)(opts, change);
-    }
+  if (event.shiftKey) {
+    return change.splitBlock().setBlocks({ type: opts.typeContent, data: {} });
+  }
 
-    // Move back to initial cell (insertRow moves selection automatically).
-    change = change.select(selection);
-
-    // Move
-    (0, _moveSelectionBy2.default)(opts, change, 0, 1);
-
-    return change;
+  return (0, _changes.insertRow)(opts, change);
 }
-
 exports.default = onEnter;

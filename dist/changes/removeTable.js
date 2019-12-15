@@ -1,26 +1,26 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-require('slate');
+require("slate");
 
-var _utils = require('../utils');
+var _removeTableByKey = require("./removeTableByKey");
+
+var _removeTableByKey2 = _interopRequireDefault(_removeTableByKey);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Delete the whole table at position
  */
 function removeTable(opts, change) {
-    var value = change.value;
-    var startBlock = value.startBlock;
+  var value = change.value;
+  var startKey = value.startKey;
 
 
-    var pos = _utils.TablePosition.create(value, startBlock);
-    var table = pos.table;
-
-
-    return change.removeNodeByKey(table.key);
+  return (0, _removeTableByKey2.default)(opts, change, startKey);
 }
 
 exports.default = removeTable;

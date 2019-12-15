@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.validateNode = exports.schema = undefined;
 
-var _schema = require('./schema');
+var _schema = require("./schema");
 
 var _schema2 = _interopRequireDefault(_schema);
 
-var _validateNode = require('./validateNode');
+var _validateNode = require("./validateNode");
 
 var _validateNode2 = _interopRequireDefault(_validateNode);
 

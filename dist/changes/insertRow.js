@@ -1,35 +1,36 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-require('slate');
+require("slate");
 
-var _utils = require('../utils');
+var _utils = require("../utils");
 
 /**
  * Insert a new row in current table
  */
 function insertRow(opts, change, at, // row index
-textGetter) {
-    var value = change.value;
-    var startBlock = value.startBlock;
+getRow // Generate the row yourself
+) {
+  var value = change.value;
+  var startKey = value.startKey;
 
 
-    var pos = _utils.TablePosition.create(value, startBlock);
-    var table = pos.table;
+  var pos = _utils.TablePosition.create(opts, value.document, startKey);
+  var table = pos.table;
 
-    // Create a new row with the right count of cells
+  // Create a new row with the right count of cells
 
-    var firstRow = table.nodes.get(0);
-    var newRow = (0, _utils.createRow)(opts, firstRow.nodes.size, textGetter);
+  var columns = table.nodes.get(0).nodes.size;
+  var newRow = getRow ? getRow(columns) : (0, _utils.createRow)(opts, columns);
 
-    if (typeof at === 'undefined') {
-        at = pos.getRowIndex() + 1;
-    }
+  if (typeof at === "undefined") {
+    at = pos.getRowIndex() + 1;
+  }
 
-    return change.insertNodeByKey(table.key, at, newRow).collapseToEndOf(newRow.nodes.get(pos.getColumnIndex()));
+  return change.insertNodeByKey(table.key, at, newRow).collapseToEndOf(newRow.nodes.get(pos.getColumnIndex()));
 }
 
 exports.default = insertRow;
