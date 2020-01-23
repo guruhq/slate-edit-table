@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 var ALIGN = {
-    LEFT: 'left',
-    RIGHT: 'right',
-    CENTER: 'center'
+  LEFT: "left",
+  RIGHT: "right",
+  CENTER: "center"
 };
 
 ALIGN.DEFAULT = ALIGN.LEFT;
