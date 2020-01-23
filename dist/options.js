@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-var _immutable = require('immutable');
+var _immutable = require("immutable");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -16,20 +16,44 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * The plugin options
  */
 var Options = function (_Record) {
-    _inherits(Options, _Record);
+  _inherits(Options, _Record);
 
-    function Options() {
-        _classCallCheck(this, Options);
+  function Options() {
+    var _ref;
 
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Options);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
-    return Options;
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Options.__proto__ || Object.getPrototypeOf(Options)).call.apply(_ref, [this].concat(args))), _this), _this.isCell = function (node) {
+      return node.object == "block" && node.type == _this.typeCell;
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+  // The type of table blocks
+
+  // The type of row blocks
+
+  // The type of cell blocks
+
+  // The type of block inserted when exiting
+
+
+  /*
+   * Return a node filter to find a cell.
+   */
+
+
+  return Options;
 }((0, _immutable.Record)({
-    typeTable: 'table',
-    typeRow: 'table_row',
-    typeCell: 'table_cell',
-    exitBlockType: 'paragraph'
+  typeTable: "table",
+  typeRow: "table_row",
+  typeCell: "table_cell",
+  typeContent: "paragraph",
+  exitBlockType: "paragraph"
 }));
 
 exports.default = Options;

@@ -1,54 +1,43 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-require('slate');
+require("slate");
 
-var _immutable = require('immutable');
+var _utils = require("../utils");
 
-var _utils = require('../utils');
+var _moveSelection = require("./moveSelection");
 
-var _changes = require('../changes');
-
-var _ALIGN = require('../ALIGN');
-
-var _ALIGN2 = _interopRequireDefault(_ALIGN);
+var _moveSelection2 = _interopRequireDefault(_moveSelection);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Insert a new column in current table
  */
-function insertColumn(opts, change, at) {
-    var columnAlign = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : _ALIGN2.default.DEFAULT;
-    var value = change.value;
-    var startBlock = value.startBlock;
+function insertColumn(opts, change, at, // Column index
+getCell) {
+  var value = change.value;
+  var startKey = value.startKey;
 
 
-    var pos = _utils.TablePosition.create(value, startBlock);
-    var table = pos.table;
+  var pos = _utils.TablePosition.create(opts, value.document, startKey);
+  var table = pos.table;
 
 
-    if (typeof at === 'undefined') {
-        at = pos.getColumnIndex() + 1;
-    }
+  var columnIndex = typeof at === "undefined" ? pos.getColumnIndex() + 1 : at;
 
-    // Insert the new cell
-    table.nodes.forEach(function (row) {
-        var newCell = (0, _utils.createCell)(opts.typeCell);
-        change.insertNodeByKey(row.key, at, newCell, { normalize: false });
+  // Insert the new cell
+  table.nodes.forEach(function (row, rowIndex) {
+    var newCell = getCell ? getCell(columnIndex, rowIndex) : (0, _utils.createCell)(opts);
+    change.insertNodeByKey(row.key, columnIndex, newCell, {
+      normalize: false
     });
+  });
 
-    // Update alignment
-    var align = table.data.get('align');
-    align = (0, _immutable.List)(align).insert(at, columnAlign).toArray();
-    change.setNodeByKey(table.key, {
-        data: table.data.set('align', align)
-    });
-
-    // Update the selection (not doing can break the undo)
-    return (0, _changes.moveSelection)(opts, change, pos.getColumnIndex() + 1, pos.getRowIndex());
+  // Update the selection (not doing can break the undo)
+  return (0, _moveSelection2.default)(opts, change, pos.getColumnIndex() + 1, pos.getRowIndex());
 }
 exports.default = insertColumn;

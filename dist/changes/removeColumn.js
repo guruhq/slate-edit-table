@@ -1,66 +1,36 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-require('slate');
+require("slate");
 
-var _immutable = require('immutable');
+var _utils = require("../utils");
 
-var _utils = require('../utils');
+var _removeColumnByKey = require("./removeColumnByKey");
+
+var _removeColumnByKey2 = _interopRequireDefault(_removeColumnByKey);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Delete current column in a table
- *
- * @param {Options} opts The plugin options
- * @param {Slate.Change} change
- * @param {Number} at
- * @return {Slate.Change}
-=======
  */
-
 function removeColumn(opts, change, at) {
-    var value = change.value;
-    var startBlock = value.startBlock;
+  var value = change.value;
+  var startKey = value.startKey;
 
 
-    var pos = _utils.TablePosition.create(value, startBlock);
-    var table = pos.table;
+  var pos = _utils.TablePosition.create(opts, value.document, startKey);
 
+  var columnKey = void 0;
+  if (typeof at === "undefined") {
+    columnKey = pos.cell.key;
+  } else {
+    columnKey = pos.row.nodes.get(at).key;
+  }
 
-    if (typeof at === 'undefined') {
-        at = pos.getColumnIndex();
-    }
-
-    var rows = table.nodes;
-
-    // Remove the cell from every row
-    if (pos.getWidth() > 1) {
-        rows.forEach(function (row) {
-            var cell = row.nodes.get(at);
-            change.removeNodeByKey(cell.key, { normalize: false });
-        });
-
-        // Update alignment
-        var align = table.data.get('align');
-        align = (0, _immutable.List)(align).delete(at).toArray();
-        change.setNodeByKey(table.key, {
-            data: table.data.set('align', align)
-        });
-    } else {
-        // If last column, clear text in cells instead
-        rows.forEach(function (row) {
-            row.nodes.forEach(function (cell) {
-                cell.nodes.forEach(function (node) {
-                    // We clear the texts in the cells
-                    change.removeNodeByKey(node.key);
-                });
-            });
-        });
-    }
-
-    // Replace the table
-    return change;
+  return (0, _removeColumnByKey2.default)(opts, change, columnKey);
 }
 exports.default = removeColumn;

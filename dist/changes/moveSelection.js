@@ -1,39 +1,32 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-require('slate');
+require("slate");
 
-var _utils = require('../utils');
+var _utils = require("../utils");
 
 /**
  * Move selection to {x,y}
  */
 function moveSelection(opts, change, x, y) {
-    var value = change.value;
-    var startBlock = value.startBlock;
-    var startOffset = value.startOffset;
+  var value = change.value;
+  var startKey = value.startKey;
 
+  var pos = _utils.TablePosition.create(opts, value.document, startKey);
 
-    if (startBlock.type !== opts.typeCell) {
-        throw new Error('moveSelection can only be applied from within a cell');
-    }
+  if (!pos.isInCell()) {
+    throw new Error("moveSelection can only be applied from within a cell");
+  }
 
-    var pos = _utils.TablePosition.create(value, startBlock);
-    var table = pos.table;
+  var table = pos.table;
 
+  var row = table.nodes.get(y);
+  var cell = row.nodes.get(x);
 
-    var row = table.nodes.get(y);
-    var cell = row.nodes.get(x);
-
-    // Calculate new offset
-    if (startOffset > cell.text.length) {
-        startOffset = cell.text.length;
-    }
-
-    return change.collapseToEndOf(cell).moveOffsetsTo(startOffset);
+  return change.collapseToStartOf(cell);
 }
 
 exports.default = moveSelection;
