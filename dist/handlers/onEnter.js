@@ -1,34 +1,54 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
-require("slate");
+var _utils = require('../utils');
 
-var _utils = require("../utils");
-
-var _changes = require("../changes");
+var _changes = require('../changes');
 
 /**
  * Insert a new row when pressing "Enter"
  */
 function onEnter(event, change, editor, opts) {
-  event.preventDefault();
-  var _change$value = change.value,
-      selection = _change$value.selection,
-      document = _change$value.document;
+    event.preventDefault();
+    var _change = change,
+        value = _change.value;
 
-  var pos = _utils.TablePosition.create(opts, document, selection.startKey);
+    // Create new row if needed
 
-  if (!selection.hasFocusAtStartOf(pos.cell) && !selection.hasFocusAtEndOf(pos.cell)) {
-    return undefined;
-  }
+    var startBlock = value.startBlock,
+        selection = value.selection;
 
-  if (event.shiftKey) {
-    return change.splitBlock().setBlocks({ type: opts.typeContent, data: {} });
-  }
+    var pos = _utils.TablePosition.create(value, startBlock);
+    if (pos.isLastRow()) {
+        (0, _changes.insertRow)(opts, change);
+    }
 
-  return (0, _changes.insertRow)(opts, change);
+    // Move back to initial cell (insertRow moves selection automatically).
+    change = change.select(selection);
+
+    // Move
+    (0, _changes.moveSelectionBy)(opts, change, 0, 1);
+
+    return change;
+
+    //   const { selection, document } = change.value;
+    //   const pos = TablePosition.create(opts, document, selection.startKey);
+
+    //   if (
+    //     !selection.hasFocusAtStartOf(pos.cell) &&
+    //     !selection.hasFocusAtEndOf(pos.cell)
+    //   ) {
+    //     return undefined;
+    //   }
+
+    //   if (event.shiftKey) {
+    //     return change.splitBlock().setBlocks({ type: opts.typeContent, data: {} });
+    //   }
+
+    //   return insertRow(opts, change);
 }
+
 exports.default = onEnter;
