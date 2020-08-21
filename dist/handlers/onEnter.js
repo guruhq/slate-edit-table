@@ -13,8 +13,7 @@ var _changes = require('../changes');
  */
 function onEnter(event, change, editor, opts) {
     event.preventDefault();
-    var _change = change,
-        value = _change.value;
+    var value = change.value;
 
     // Create new row if needed
 
@@ -27,9 +26,11 @@ function onEnter(event, change, editor, opts) {
     }
 
     // Move back to initial cell (insertRow moves selection automatically).
-    change = change.select(selection);
+    change.select(selection);
 
     // Move
+    // moveSelectionBy(opts, change, 0, 1);
+
     (0, _changes.moveSelectionBy)(opts, change, 0, 1);
 
     return change;
