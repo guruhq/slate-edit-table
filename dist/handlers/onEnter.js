@@ -17,10 +17,10 @@ function onEnter(event, change, editor, opts) {
 
     // Create new row if needed
 
-    var startBlock = value.startBlock,
+    var startKey = value.startKey,
         selection = value.selection;
 
-    var pos = _utils.TablePosition.create(value, startBlock);
+    var pos = _utils.TablePosition.create(value, startKey);
     if (pos.isLastRow()) {
         (0, _changes.insertRow)(opts, change);
     }
