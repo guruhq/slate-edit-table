@@ -18,9 +18,10 @@ function onEnter(event, change, editor, opts) {
     // Create new row if needed
 
     var startKey = value.startKey,
-        selection = value.selection;
+        selection = value.selection,
+        document = value.document;
 
-    var pos = _utils.TablePosition.create(value, startKey);
+    var pos = _utils.TablePosition.create(opts, document, startKey);
     if (pos.isLastRow()) {
         (0, _changes.insertRow)(opts, change);
     }
