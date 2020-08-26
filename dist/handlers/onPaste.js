@@ -36,7 +36,7 @@ opts, event, change, editor) {
     anchorKey: fragment.getFirstText().key,
     focusKey: fragment.getLastText().key
   }))) {
-    return null;
+    return change.insertFragmentAtRange(change.value.selection, fragment);
   }
 
   return (0, _changes.insertTableFragmentAtRange)(opts, change, change.value.selection, fragment);
