@@ -35,7 +35,7 @@ function schema(opts) {
         }
       }
     }), _defineProperty(_blocks, opts.typeCell, {
-      nodes: [{ objects: ["block"] }],
+      nodes: [{ types: ["paragraph", "BULLETED_LIST", "NUMBERED_LIST", "NUMBERED_LIST_ITEM", "BULLETED_LIST_ITEM"] }],
       parent: { types: [opts.typeRow] },
       normalize: function normalize(change, violation, context) {
         switch (violation) {
