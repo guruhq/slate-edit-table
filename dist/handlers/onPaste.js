@@ -36,16 +36,7 @@ opts, event, change, editor) {
     anchorKey: fragment.getFirstText().key,
     focusKey: fragment.getLastText().key
   }))) {
-    var parent = change.value.document.getParent(change.value.focusBlock.key);
-
-    change.insertFragmentAtRange(change.value.selection, fragment);
-
-    if (parent.text === "" && !parent.nodes.first().nodes.some(function (node) {
-      return node.isVoid;
-    })) {
-      change.deleteForward(1);
-    }
-    return change;
+    return undefined;
   }
 
   return (0, _changes.insertTableFragmentAtRange)(opts, change, change.value.selection, fragment);
