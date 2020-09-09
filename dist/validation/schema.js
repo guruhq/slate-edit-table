@@ -35,12 +35,12 @@ function schema(opts) {
         }
       }
     }), _defineProperty(_blocks, opts.typeCell, {
-      nodes: [{ objects: ["block"] }],
+      nodes: [{ objects: ["inline", "text"] }],
       parent: { types: [opts.typeRow] },
       normalize: function normalize(change, violation, context) {
         switch (violation) {
           case _slateSchemaViolations.CHILD_OBJECT_INVALID:
-            return onlyBlocksInCell(opts, change, context);
+            return noBlocksWithinCell(opts, change, context);
           case _slateSchemaViolations.PARENT_TYPE_INVALID:
             return cellOnlyInRow(opts, change, context);
           default:
@@ -74,6 +74,7 @@ function rowOnlyInTable(opts, change, context) {
 /*
  * A cell's children must be "block"s.
  * If they're not then we wrap them within a block with a type of opts.typeContent
+ * Save this for later
  */
 function onlyBlocksInCell(opts, change, context) {
   var block = _slate.Block.create({
@@ -89,6 +90,21 @@ function onlyBlocksInCell(opts, change, context) {
       normalize: false
     });
   });
+}
+
+/* 
+ * Temporary solution if it will help speed up tables
+ */
+
+function noBlocksWithinCell(opts, change, context) {
+  if (context.child.object === "block") {
+    if (context.child.isVoid) {
+      return change.unwrapNodeByKey(context.child.key);
+    } else {
+      change.removeNodeByKey(context.child.key, { normalize: false });
+    }
+  }
+  return change.normalize();
 }
 
 /*
