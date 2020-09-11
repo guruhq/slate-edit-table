@@ -108,6 +108,7 @@ function noBlocksWithinCell(opts, change, context) {
       });
     });
   });
+  return change;
 }
 
 /*
