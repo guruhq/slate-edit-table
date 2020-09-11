@@ -97,14 +97,17 @@ function onlyBlocksInCell(opts, change, context) {
  */
 
 function noBlocksWithinCell(opts, change, context) {
-  if (context.child.object === "block") {
-    if (context.child.isVoid) {
-      return change.removeNodeByKey(context.child.key, { normalize: false });
-    } else {
-      change.unwrapNodeByKey(context.child.key);
-    }
-  }
-  return change.normalize();
+  var nestedBlocks = context.node.nodes.filter(function (child) {
+    return child.kind === 'block';
+  });
+
+  nestedBlocks.forEach(function (block) {
+    return block.nodes.forEach(function (grandChild) {
+      change.unwrapNodeByKey(grandChild.key, {
+        normalize: false
+      });
+    });
+  });
 }
 
 /*
