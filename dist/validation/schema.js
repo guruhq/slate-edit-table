@@ -98,7 +98,7 @@ function onlyBlocksInCell(opts, change, context) {
 
 function noBlocksWithinCell(opts, change, context) {
   var nestedBlocks = context.node.nodes.filter(function (child) {
-    return child.kind === 'block';
+    return child.object === 'block';
   });
 
   nestedBlocks.forEach(function (block) {
