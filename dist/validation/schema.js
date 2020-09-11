@@ -99,9 +99,9 @@ function onlyBlocksInCell(opts, change, context) {
 function noBlocksWithinCell(opts, change, context) {
   if (context.child.object === "block") {
     if (context.child.isVoid) {
-      return change.unwrapNodeByKey(context.child.key);
+      return change.removeNodeByKey(context.child.key, { normalize: false });
     } else {
-      change.removeNodeByKey(context.child.key, { normalize: false });
+      change.unwrapNodeByKey(context.child.key);
     }
   }
   return change.normalize();
