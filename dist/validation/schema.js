@@ -103,6 +103,11 @@ function noBlocksWithinCell(opts, change, context) {
 
   nestedBlocks.forEach(function (block) {
     return block.nodes.forEach(function (grandChild) {
+      if (grandChild.type === "CODE_BLOCK_LINE") {
+        return grandChild.nodes.forEach(function (greatGrandChild) {
+          change.unwrapNodeByKey(greatGrandChild.key, { normalize: false });
+        });
+      }
       change.unwrapNodeByKey(grandChild.key, {
         normalize: false
       });
